@@ -65,7 +65,14 @@ public abstract class GridlayoutListFragment<M, VH extends RecyclerView.ViewHold
 
         mListView = view.findViewById(R.id.listRecyclerView);
         mListView.setItemAnimator(onItemAnimator());
-        mListView.setLayoutManager(onLayoutManager());
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return 2;
+            }
+        });
+        mListView.setLayoutManager(layoutManager);
         mListView.setAdapter(mListAdapter);
 
         mSmartRefreshLayout.setEnableRefresh(false);
